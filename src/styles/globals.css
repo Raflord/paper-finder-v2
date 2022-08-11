@@ -1,0 +1,183 @@
+html,
+body {
+  background: #f2f2f2; /*#f2f2f2*/
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/*CSS PaperFinder*/
+
+header {
+  padding: 50px 0;
+}
+
+.logo-arauco {
+  width: 20%;
+}
+
+.container {
+  position: relative;
+  width: 940px;
+  margin: 0 auto;
+}
+
+nav {
+  position: absolute;
+  top: 10px;
+  right: 0;
+}
+
+nav li {
+  display: inline;
+  margin: 0 0 0 15px;
+}
+
+nav a {
+  text-transform: uppercase;
+  color: #000000;
+  font-weight: bold;
+  font-size: 22px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: orange;
+}
+
+.title {
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+  margin: 0.5em 0 1.5em;
+}
+
+form {
+  width: 940px;
+  margin: 0 auto;
+}
+
+form label,
+form legend {
+  display: block;
+  font-size: 18px;
+  margin: 0 0 10px;
+}
+
+/* .default-input {
+  display: block;
+  margin: 0 0 20px;
+  padding: 10px 25px;
+  width: 100%;
+  box-sizing: border-box;
+} */
+
+.dropdown-menu {
+  width: 100px;
+  padding: 2px;
+  border-radius: 5px;
+  margin: 0 15px 10px 0;
+}
+
+.form-button {
+  width: 50%;
+  margin: 1em 0 0;
+  padding: 15px 0;
+  background: orange;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  transition: 50ms all;
+  cursor: pointer;
+}
+
+.form-button:hover {
+  background: darkorange;
+  transform: scale(1.05);
+}
+
+/* Search Bar */
+
+.search-bar {
+  width: 940px;
+  margin: 2em auto;
+}
+
+#searchInput {
+  background-position: 10px 12px; /* Position the search icon */
+  background-repeat: no-repeat; /* Do not repeat the icon image */
+  width: 100%; /* Full-width */
+  box-sizing: border-box;
+  font-size: 16px; /* Increase font-size */
+  padding: 12px 12px; /* Add some padding */
+  border: 1px solid #ddd; /* Add a grey border */
+  margin-bottom: 12px; /* Add some space below the input */
+}
+
+#paperTable {
+  border-collapse: collapse; /* Collapse borders */
+  width: 100%; /* Full-width */
+  border: 1px solid #ddd; /* Add a grey border */
+  font-size: 18px; /* Increase font-size */
+}
+
+#paperTable th {
+  text-align: left; /* Left-align text */
+  padding: 12px; /* Add padding */
+  width: auto;
+}
+
+#paperTable td {
+  text-align: left; /* Left-align text */
+  padding: 12px; /* Add padding */
+  text-transform: capitalize; /* first letter is capitalized */
+}
+
+#paperTable tr {
+  /* Add a bottom border to all table rows */
+  border-bottom: 1px solid #ddd;
+}
+
+#paperTable tr.header,
+#paperTable tr:hover {
+  /* Add a grey background color to the table header and on hover */
+  background-color: #f1f1f1;
+}
+
+/* Style for the remove button */
+
+.remove-button {
+  padding: 3px;
+}
+
+/************************************************/
+
+/* mobile part */
+
+@media screen and (max-width: 768px) {
+  .container,
+  #myForm,
+  .search-bar {
+    width: auto;
+    margin: 5px;
+  }
+
+  header {
+    padding: 20px 0;
+  }
+
+  .logo-arauco {
+    width: 40%;
+  }
+}
