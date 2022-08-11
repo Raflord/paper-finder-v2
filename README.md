@@ -30,4 +30,4 @@ A maneira que o supabase contorna o fato das Keys estarem expostas ao cliente, �
 
 Tendo isso em mente, durante o desenvolvimento usei as Keys e URLs diretamente no código, para ter uma experiência mais tranquila de desenvolvimento. Meu intuito era melhorar meu entendimento do React usando esse projeto antigo como base.
 
-Tenho planos pra implementar um sistema de autenticação em um projeto futuro, que vai ser mais completo e complexo, agora que já tenho uma base do React.
+Tenho planos pra implementar um sistema de autenticação em um projeto futuro, que vai ser mais completo e complexo, com ferramentas que melhoram não só o desenvolvimento, mas também o comportamento da aplicação, agora que tenho um melhor entendimento de como o React funciona.
