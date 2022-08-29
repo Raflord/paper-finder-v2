@@ -2,7 +2,7 @@
 
 ## O que é esse projeto
 
-Esse é meu primeiro projeto usando React. Esse projeto é uma releitura do meu [primeiro projeto](https://github.com/Raflord/paper-finder “Meu primeiro projeto usando JavaScript”) usando JavaScript. Dessa vez optei por usar NextJS para criação do projeto React junto com TypeScript, meu foco era melhorar meu entendimento do React e explorar suas funcionalidades. Como o [projeto anterior](https://github.com/Raflord/paper-finder “Meu primeiro projeto usando JavaScript”) não tinha um backend, dessa vez usei um BaaS (supabase), assim tendo acesso a um banco de dados, mas podendo ainda focar no frontend.
+Esse é meu primeiro projeto usando React. Esse projeto é uma releitura do meu primeiro projeto usando JavaScript. Dessa vez optei por usar NextJS para criação do projeto React junto com TypeScript, meu foco era melhorar meu entendimento do React e explorar suas funcionalidades. Como o projeto anterior não tinha um backend, dessa vez usei um BaaS (supabase), assim tendo acesso a um banco de dados, mas podendo ainda focar no frontend.
 
 ## Como a ideia surgiu
 
@@ -24,10 +24,10 @@ O sistema consiste em apenas uma tela, onde o operador de empilhadeira pode regi
 
 Após o preenchimento das informações, o material é armazenado em uma lista que contém todos os papéis do estoque. Uma barra de pesquisa pode ser utilizada para buscar determinado material pelo seu nome, filtrando e mostrando a posição onde se encontra cada papel da pesquisa.
 
-Dessa vez, diferente do [projeto anterior](https://github.com/Raflord/paper-finder “Meu primeiro projeto usando JavaScript”), todas as informações são armazenadas em um banco de dados usando Supabase. Note que todas as Keys e URLs necessárias para acessar o banco de dados, estão como variáveis de ambiente. Porém, esse método não funciona com Next e Supabase. Todas as variáveis de ambiente deveriam ser expostas ao cliente, pois o supabase é iniciado no lado do cliente e não do servidor.
+Dessa vez, diferente do projeto anterior, todas as informações são armazenadas em um banco de dados usando Supabase. Note que todas as Keys e URLs necessárias para acessar o banco de dados, estão como variáveis de ambiente. Porém, esse método não funciona com Next e Supabase. Todas as variáveis de ambiente deveriam ser expostas ao cliente, pois o supabase é iniciado no lado do cliente e não do servidor.
 
 A maneira que o supabase contorna o fato das Keys estarem expostas ao cliente, é por meio de Row Level Security, permitindo somente usuários autenticados fazerem alterações no banco de dados.
 
-Tendo isso em mente, durante o desenvolvimento usei as Keys e URLs diretamente no código, para ter uma experiência mais tranquila de desenvolvimento. Meu intuito era melhorar meu entendimento do React usando esse [projeto antigo](https://github.com/Raflord/paper-finder “Meu primeiro projeto usando JavaScript”) como base.
+Tendo isso em mente, durante o desenvolvimento usei as Keys e URLs diretamente no código, para ter uma experiência mais tranquila de desenvolvimento. Meu intuito era melhorar meu entendimento do React usando esse projeto antigo como base.
 
-Tenho planos pra implementar um sistema de autenticação em um projeto futuro, que vai ser mais completo e complexo, agora que já tenho uma base do React.
+Tenho planos pra implementar um sistema de autenticação em um projeto futuro, que vai ser mais completo e complexo, com ferramentas que melhoram não só o desenvolvimento, mas também o comportamento da aplicação, agora que tenho um melhor entendimento de como o React funciona.
