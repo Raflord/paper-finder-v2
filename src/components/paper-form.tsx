@@ -1,5 +1,5 @@
-import supabase from '../utils/supabaseClient';
 import { useState } from 'react';
+import supabase from '../utils/supabaseClient';
 
 export default function Form() {
   const [material, setMaterial] = useState('');
@@ -35,10 +35,12 @@ export default function Form() {
   return (
     <>
       <form onSubmit={handleFormSubmit}>
-        <label htmlFor="material-description">Descrição do material</label>
+        <label htmlFor="material-description" className="mb-2">
+          Descrição do material
+        </label>
         <select
           name="material-description"
-          className="dropdown-menu"
+          className="mb-3"
           value={material}
           onChange={(e) => setMaterial(e.target.value)}
         >
@@ -52,13 +54,15 @@ export default function Form() {
           <option value="grafito">Grafito</option>
           <option value="lotus">Lotus</option>
           <option value="nimbus">Nimbus</option>
-          <option value="onix">Ônix</option>
+          <option value="ônix">Ônix</option>
           <option value="preto">Preto</option>
         </select>
-        <label htmlFor="position">Posição do material</label>
+        <label htmlFor="position" className="mb-2">
+          Posição do material
+        </label>
         <select
           name="position"
-          className="dropdown-menu"
+          className="mr-4 mb-3"
           value={magazine}
           onChange={(e) => setMagazine(e.target.value)}
         >
@@ -92,7 +96,7 @@ export default function Form() {
         </select>
         <select
           name="position"
-          className="dropdown-menu"
+          className="mb-3"
           value={position}
           onChange={(e) => setPosition(e.target.value)}
         >
@@ -106,13 +110,14 @@ export default function Form() {
           <option value="7">7</option>
           <option value="8">8</option>
         </select>
-        <fieldset>
-          <legend>Qual é o lado do material?</legend>
-          <label>
+        <fieldset className="mb-3">
+          <legend className="mb-2">Qual é o lado do material?</legend>
+          <label className="mb-1">
             <input
               type="radio"
               value="superior"
               name="paper-side"
+              className="mr-2"
               checked={paperSide === 'superior'}
               onChange={(e) => {
                 setPaperSide(e.target.value);
@@ -120,11 +125,12 @@ export default function Form() {
             />
             Superior
           </label>
-          <label>
+          <label className="">
             <input
               type="radio"
               value="inferior"
               name="paper-side"
+              className="mr-2"
               checked={paperSide === 'inferior'}
               onChange={(e) => {
                 setPaperSide(e.target.value);
@@ -133,7 +139,10 @@ export default function Form() {
             Inferior
           </label>
         </fieldset>
-        <button type="submit" className="form-button">
+        <button
+          type="submit"
+          className="bg-sky-500 text-xl text-white p-3 rounded-lg w-1/2 font-semibold hover:scale-105 transition duration-100 ease-in mb-5"
+        >
           Novo Item
         </button>
       </form>

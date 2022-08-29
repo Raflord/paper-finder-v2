@@ -40,16 +40,17 @@ const PaperList = () => {
 
   return (
     <>
-      <div className="search-bar">
+      <div className="">
         <input
-          id="searchInput"
+          type="text"
           placeholder="Qual papel está procurando?"
           onChange={(e) => setSearch(e.target.value)}
           value={search}
+          className="w-full p-2 mb-3"
         ></input>
-        <table id="paperTable">
+        <table className="w-full text-left capitalize text-lg">
           <thead>
-            <tr className="header">
+            <tr>
               <th>ID - Nome</th>
               <th>Posição</th>
               <th>Lado</th>
@@ -71,7 +72,7 @@ const PaperList = () => {
                       <td key={'button' + paper.created_at}>
                         <button
                           onClick={() => removeRow(paper.id)}
-                          className="remove-button"
+                          className="border border-black px-1 rounded-md bg-gray-200 text-sm"
                         >
                           Remover
                         </button>
@@ -93,7 +94,7 @@ const PaperList = () => {
                       <td key={'button' + paper.created_at}>
                         <button
                           onClick={() => removeRow(paper.id)}
-                          className="remove-button"
+                          className="border border-black px-1 rounded-md bg-gray-200 text-sm"
                         >
                           Remover
                         </button>

@@ -5,8 +5,10 @@ import Form from './../components/paper-form';
 const Home: NextPage = () => {
   return (
     <>
-      <Form />
-      <PaperList />
+      <main className="mx-auto max-w-5xl">
+        <Form />
+        <PaperList />
+      </main>
     </>
   );
 };

@@ -3,5 +3,42 @@
 @tailwind utilities;
 
 body {
-  @apply bg-slate-100;
+  @apply bg-neutral-100;
+}
+
+label,
+legend {
+  @apply block text-lg;
+}
+
+tr {
+  @apply border border-gray-400;
+}
+
+th {
+  @apply p-2;
+}
+
+td {
+  @apply p-2;
+}
+
+@layer base {
+  [type='text'],
+  [type='email'],
+  [type='url'],
+  [type='password'],
+  [type='number'],
+  [type='date'],
+  [type='datetime-local'],
+  [type='month'],
+  [type='search'],
+  [type='tel'],
+  [type='time'],
+  [type='week'],
+  [multiple],
+  textarea,
+  select {
+    @apply rounded-lg p-1 w-44;
+  }
 }
