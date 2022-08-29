@@ -14,9 +14,6 @@ const PaperList = () => {
   const [papers, setPapers] = useState<Paper[]>([]);
   const [search, setSearch] = useState('');
 
-  console.log('render');
-  console.log(process.env.NEXT_PUBLIC_SUPABASE_KEY);
-
   const removeRow = (paperId: number) => {
     const indexToRemove = papers.findIndex((e) => e.id === paperId);
     setPapers(papers.slice(indexToRemove, 0));

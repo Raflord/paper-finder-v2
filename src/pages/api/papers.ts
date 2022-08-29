@@ -10,12 +10,15 @@ interface Paper {
 }
 
 async function fetchPapers(req: NextApiRequest, res: NextApiResponse<Paper>) {
+  const supabaseKey = process.env.SUPABASE_KEY || '';
+  const supabaseAuth = process.env.SUPABASE_AUTH_KEY || '';
+
   const papersRes = await fetch(
     'https://rciwgsmivatqlvylivpp.supabase.co/rest/v1/papers?select=*',
     {
       headers: {
-        Apikey: process.env.SUPABASE_KEY,
-        Authorization: process.env.SUPABASE_AUTH_KEY,
+        Apikey: supabaseKey,
+        Authorization: supabaseAuth,
       },
     }
   );
