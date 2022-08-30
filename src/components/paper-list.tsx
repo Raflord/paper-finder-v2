@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import supabase from '../utils/supabaseClient';
 
 interface Paper {
   id: number;
@@ -18,21 +17,21 @@ const PaperList = () => {
     const indexToRemove = papers.findIndex((e) => e.id === paperId);
     setPapers(papers.slice(indexToRemove, 0));
 
-    const removeFromDb = async (paperId: number) => {
-      const { data, error } = await supabase
-        .from('papers')
-        .delete()
-        .eq('id', paperId);
-    };
-    removeFromDb(paperId);
+    fetch('/api/papers', {
+      method: 'DELETE',
+      body: JSON.stringify({ id: paperId }),
+    });
   };
 
   useEffect(() => {
-    fetch('/api/papers')
+    fetch('/api/papers', {
+      method: 'GET',
+    })
       .then((response) => response.json())
       .then((data) => setPapers(data));
   }, [papers.length]);
 
+  // filters papers list
   const filteredPapers =
     search.length > 0
       ? papers.filter((paper) => paper.name.includes(search))

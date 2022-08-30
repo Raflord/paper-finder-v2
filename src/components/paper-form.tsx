@@ -1,34 +1,31 @@
 import { useState } from 'react';
-import supabase from '../utils/supabaseClient';
 
 export default function Form() {
-  const [material, setMaterial] = useState('');
-  const [magazine, setMagazine] = useState('');
-  const [position, setPosition] = useState('');
+  const [paperName, setPaperName] = useState('');
+  const [paperMagazine, setPaperMagazine] = useState('');
+  const [paperPosition, setPaperPosition] = useState('');
   const [paperSide, setPaperSide] = useState('superior');
 
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-    if (material === '' || magazine === '' || position === '') {
+    if (paperName === '' || paperMagazine === '' || paperPosition === '') {
       return alert('Preencha todos os campos');
     }
 
-    const insertRow = async () => {
-      const { data, error } = await supabase.from('papers').insert([
-        {
-          name: material,
-          magazine: magazine,
-          position: position,
-          side: paperSide,
-        },
-      ]);
-    };
-    insertRow();
+    fetch('/api/papers', {
+      method: 'POST',
+      body: JSON.stringify({
+        name: paperName,
+        magazine: paperMagazine,
+        position: paperPosition,
+        side: paperSide,
+      }),
+    });
 
-    setMaterial('');
-    setMagazine('');
-    setPosition('');
+    setPaperName('');
+    setPaperMagazine('');
+    setPaperPosition('');
     setPaperSide('superior');
   };
 
@@ -41,8 +38,8 @@ export default function Form() {
         <select
           name="material-description"
           className="mb-3"
-          value={material}
-          onChange={(e) => setMaterial(e.target.value)}
+          value={paperName}
+          onChange={(e) => setPaperName(e.target.value)}
         >
           <option value="">Nome</option>
           <option value="branco">Branco</option>
@@ -63,8 +60,8 @@ export default function Form() {
         <select
           name="position"
           className="mr-4 mb-3"
-          value={magazine}
-          onChange={(e) => setMagazine(e.target.value)}
+          value={paperMagazine}
+          onChange={(e) => setPaperMagazine(e.target.value)}
         >
           <option value="">Magazine</option>
           <option value="a">A</option>
@@ -97,8 +94,8 @@ export default function Form() {
         <select
           name="position"
           className="mb-3"
-          value={position}
-          onChange={(e) => setPosition(e.target.value)}
+          value={paperPosition}
+          onChange={(e) => setPaperPosition(e.target.value)}
         >
           <option value="">Posição</option>
           <option value="1">1</option>
