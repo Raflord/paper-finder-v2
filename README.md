@@ -24,10 +24,4 @@ O sistema consiste em apenas uma tela, onde o operador de empilhadeira pode regi
 
 Após o preenchimento das informações, o material é armazenado em uma lista que contém todos os papéis do estoque. Uma barra de pesquisa pode ser utilizada para buscar determinado material pelo seu nome, filtrando e mostrando a posição onde se encontra cada papel da pesquisa.
 
-Dessa vez, diferente do projeto anterior, todas as informações são armazenadas em um banco de dados usando Supabase. Note que todas as Keys e URLs necessárias para acessar o banco de dados, estão como variáveis de ambiente. Porém, esse método não funciona com Next e Supabase. Todas as variáveis de ambiente deveriam ser expostas ao cliente, pois o supabase é iniciado no lado do cliente e não do servidor.
-
-A maneira que o supabase contorna o fato das Keys estarem expostas ao cliente, é por meio de Row Level Security, permitindo somente usuários autenticados fazerem alterações no banco de dados.
-
-Tendo isso em mente, durante o desenvolvimento usei as Keys e URLs diretamente no código, para ter uma experiência mais tranquila de desenvolvimento. Meu intuito era melhorar meu entendimento do React usando esse projeto antigo como base.
-
-Tenho planos pra implementar um sistema de autenticação em um projeto futuro, que vai ser mais completo e complexo, com ferramentas que melhoram não só o desenvolvimento, mas também o comportamento da aplicação, agora que tenho um melhor entendimento de como o React funciona.
+Dessa vez, diferente do projeto anterior, todas as informações são armazenadas em um banco de dados usando Supabase. Tenho planos pra implementar um sistema de autenticação em um projeto futuro, que vai ser mais completo e complexo, com ferramentas que melhoram não só o desenvolvimento, mas também o comportamento da aplicação, agora que tenho um melhor entendimento de como o React funciona.
