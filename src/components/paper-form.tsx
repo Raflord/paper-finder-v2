@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
-import { IPaper } from '../../types/IPaper';
+import { PaperOptions } from '../../types/IPaper';
 import { queryClient } from './../pages/index';
 
 interface ICreatePaperParams {
@@ -71,17 +71,13 @@ export default function Form() {
           onChange={(e) => setPaperName(e.target.value)}
         >
           <option value="">Nome</option>
-          <option value="branco">Branco</option>
-          <option value="carvalho">Carvalho</option>
-          <option value="carvalho americano">Carvalho Americano</option>
-          <option value="concreto">Concreto</option>
-          <option value="concreto metropolitan">Concreto Metropolitan</option>
-          <option value="cumaru">Cumaru</option>
-          <option value="grafito">Grafito</option>
-          <option value="lotus">Lotus</option>
-          <option value="nimbus">Nimbus</option>
-          <option value="ônix">Ônix</option>
-          <option value="preto">Preto</option>
+          {PaperOptions.map((paper) => {
+            return (
+              <option key={paper} value={paper}>
+                {paper}
+              </option>
+            );
+          })}
         </select>
         <label htmlFor="magazine" className="mb-2">
           Posição do material
