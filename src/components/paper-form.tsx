@@ -1,10 +1,42 @@
+import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
+import { IPaper } from '../../types/IPaper';
+import { queryClient } from './../pages/index';
+
+interface ICreatePaperParams {
+  name: string;
+  magazine: string;
+  position: number;
+  side: string;
+}
 
 export default function Form() {
   const [paperName, setPaperName] = useState('');
   const [paperMagazine, setPaperMagazine] = useState('');
   const [paperPosition, setPaperPosition] = useState('');
   const [paperSide, setPaperSide] = useState('superior');
+
+  const { mutate } = useMutation(
+    async ({ name, magazine, position, side }: ICreatePaperParams) =>
+      await fetch('/api/papers', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: name,
+          magazine: magazine,
+          position: position,
+          side: side,
+        }),
+      }),
+    {
+      onSuccess: () => {
+        alert('Papel adicionado com sucesso.');
+        queryClient.invalidateQueries(['papers']);
+      },
+      onError: () => {
+        alert('Erro ao adicionar papel!\nTente novamente.');
+      },
+    }
+  );
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -13,14 +45,11 @@ export default function Form() {
       return alert('Preencha todos os campos');
     }
 
-    fetch('/api/papers', {
-      method: 'POST',
-      body: JSON.stringify({
-        name: paperName,
-        magazine: paperMagazine,
-        position: paperPosition,
-        side: paperSide,
-      }),
+    mutate({
+      name: paperName,
+      magazine: paperMagazine,
+      position: Number(paperPosition),
+      side: paperSide,
     });
 
     setPaperName('');
@@ -32,11 +61,11 @@ export default function Form() {
   return (
     <>
       <form onSubmit={handleFormSubmit}>
-        <label htmlFor="material-description" className="mb-2">
+        <label htmlFor="name" className="mb-2">
           Descrição do material
         </label>
         <select
-          name="material-description"
+          name="name"
           className="mb-3"
           value={paperName}
           onChange={(e) => setPaperName(e.target.value)}
@@ -54,11 +83,11 @@ export default function Form() {
           <option value="ônix">Ônix</option>
           <option value="preto">Preto</option>
         </select>
-        <label htmlFor="position" className="mb-2">
+        <label htmlFor="magazine" className="mb-2">
           Posição do material
         </label>
         <select
-          name="position"
+          name="magazine"
           className="mr-4 mb-3"
           value={paperMagazine}
           onChange={(e) => setPaperMagazine(e.target.value)}
@@ -113,7 +142,7 @@ export default function Form() {
             <input
               type="radio"
               value="superior"
-              name="paper-side"
+              name="side"
               className="mr-2"
               checked={paperSide === 'superior'}
               onChange={(e) => {
@@ -126,7 +155,7 @@ export default function Form() {
             <input
               type="radio"
               value="inferior"
-              name="paper-side"
+              name="side"
               className="mr-2"
               checked={paperSide === 'inferior'}
               onChange={(e) => {

@@ -1,45 +1,69 @@
-import { useEffect, useState } from 'react';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { IPaper } from '../../types/IPaper';
+import { queryClient } from './../pages/index';
 
-interface Paper {
-  id: number;
-  created_at: string;
-  name: string;
-  magazine: string;
-  position: number;
-  side: string;
-}
+const fetchPapers = async () => {
+  const res = await fetch('/api/papers', {
+    method: 'GET',
+  });
+
+  if (res.ok) {
+    return res.json();
+  }
+
+  throw new Error(res.statusText);
+};
 
 const PaperList = () => {
-  const [papers, setPapers] = useState<Paper[]>([]);
   const [search, setSearch] = useState('');
 
-  const removeRow = (paperId: number) => {
-    const indexToRemove = papers.findIndex((e) => e.id === paperId);
-    setPapers(papers.slice(indexToRemove, 0));
+  // query to fetch the paper list from supabase
+  const { data, isLoading, isError, error } = useQuery<IPaper[], Error>(
+    ['papers'],
+    fetchPapers
+  );
 
-    fetch('/api/papers', {
-      method: 'DELETE',
-      body: JSON.stringify({ id: paperId }),
-    });
-  };
-
-  useEffect(() => {
-    fetch('/api/papers', {
-      method: 'GET',
-    })
-      .then((response) => response.json())
-      .then((data) => setPapers(data));
-  }, [papers.length]);
+  // mutation hook to remove a paper form supabase
+  const { mutate } = useMutation(
+    async (id: number) =>
+      await fetch('/api/papers', {
+        method: 'DELETE',
+        body: JSON.stringify({ id: id }),
+      }),
+    {
+      onSuccess: () => {
+        alert('Papel removido com sucesso.');
+        queryClient.invalidateQueries(['papers']);
+      },
+      onError: () => {
+        alert('Erro ao remover o papel!\nTente novamente.');
+      },
+    }
+  );
 
   // filters papers list
   const filteredPapers =
     search.length > 0
-      ? papers.filter((paper) => paper.name.includes(search))
+      ? data?.filter((paper) => paper.name.includes(search))
       : [];
+
+  if (isLoading) {
+    return <span>Buscando lista de papéis no servidor...</span>;
+  }
+
+  if (isError) {
+    return (
+      <span>
+        Erro ao buscar lista de papéis no servidor! <br />
+        Error message: {error.message}
+      </span>
+    );
+  }
 
   return (
     <>
-      <div className="">
+      <div>
         <input
           type="text"
           placeholder="Qual papel está procurando?"
@@ -57,7 +81,7 @@ const PaperList = () => {
           </thead>
           <tbody>
             {search.length > 0
-              ? filteredPapers.map((paper) => {
+              ? filteredPapers?.map((paper) => {
                   return (
                     <tr key={'id' + paper.id}>
                       <td key={'name' + paper.created_at}>
@@ -70,7 +94,9 @@ const PaperList = () => {
                       <td key={'side' + paper.created_at}>{paper.side}</td>
                       <td key={'button' + paper.created_at}>
                         <button
-                          onClick={() => removeRow(paper.id)}
+                          onClick={() => {
+                            mutate(paper.id);
+                          }}
                           className="border border-black px-1 rounded-md bg-gray-200 text-sm"
                         >
                           Remover
@@ -79,7 +105,7 @@ const PaperList = () => {
                     </tr>
                   );
                 })
-              : papers.map((paper) => {
+              : data?.map((paper) => {
                   return (
                     <tr key={'id' + paper.id}>
                       <td key={'name' + paper.created_at}>
@@ -92,7 +118,9 @@ const PaperList = () => {
                       <td key={'side' + paper.created_at}>{paper.side}</td>
                       <td key={'button' + paper.created_at}>
                         <button
-                          onClick={() => removeRow(paper.id)}
+                          onClick={() => {
+                            mutate(paper.id);
+                          }}
                           className="border border-black px-1 rounded-md bg-gray-200 text-sm"
                         >
                           Remover

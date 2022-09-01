@@ -1,50 +1,57 @@
+import { createClient } from '@supabase/supabase-js';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { IPaper } from '../../../types/IPaper';
+import { definitions } from '../../../types/supabase';
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
+);
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
-    const papersRes = await fetch(
-      'https://rciwgsmivatqlvylivpp.supabase.co/rest/v1/papers?select=*',
-      {
-        headers: {
-          Apikey: process.env.SUPABASE_KEY,
-          Authorization: process.env.SUPABASE_AUTH_KEY,
-        },
-      }
-    );
+    const data = await supabase
+      .from<definitions['papers']>('papers')
+      .select('*');
 
-    const papersResJson = await papersRes.json();
-    res.status(200).json(papersResJson);
+    if (data.error) {
+      res.status(data.status).json(data.error);
+    }
+    res.status(data.status).json(data.data);
   }
 
   if (req.method === 'POST') {
-    fetch('https://rciwgsmivatqlvylivpp.supabase.co/rest/v1/papers', {
-      body: req.body,
-      headers: {
-        Apikey: process.env.SUPABASE_KEY,
-        Authorization: process.env.SUPABASE_AUTH_KEY,
-        'Content-Type': 'application/json',
-        Prefer: 'return=representation',
-      },
-      method: 'POST',
-    });
+    const body: IPaper = JSON.parse(req.body);
 
-    res.status(200).json({ status: 'Paper added successfully' });
+    const data = await supabase.from<definitions['papers']>('papers').insert([
+      {
+        name: body.name,
+        magazine: body.magazine,
+        position: body.position,
+        side: body.side,
+      },
+    ]);
+
+    if (data.error) {
+      res.status(data.status).json(data.error);
+    }
+
+    res.status(data.status).json(data.statusText);
   }
 
   if (req.method === 'DELETE') {
-    const body = JSON.parse(req.body);
-    fetch(
-      `https://rciwgsmivatqlvylivpp.supabase.co/rest/v1/papers?id=eq.${body.id}`,
-      {
-        headers: {
-          Apikey: process.env.SUPABASE_KEY,
-          Authorization: process.env.SUPABASE_AUTH_KEY,
-        },
-        method: 'DELETE',
-      }
-    );
+    const body: IPaper = JSON.parse(req.body);
 
-    res.status(200).json({ status: 'Paper deleted successfully' });
+    const data = await supabase
+      .from<definitions['papers']>('papers')
+      .delete()
+      .eq('id', body.id);
+
+    if (data.error) {
+      res.status(data.status).json(data.error);
+    }
+
+    res.status(data.status).json(data.statusText);
   }
 }
 
