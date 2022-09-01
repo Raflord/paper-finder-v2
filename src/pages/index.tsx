@@ -14,7 +14,7 @@ export const queryClient = new QueryClient({
 const Home: NextPage = () => {
   return (
     <>
-      <main className="mx-auto max-w-5xl">
+      <main className="mx-auto max-w-5xl px-4">
         <QueryClientProvider client={queryClient}>
           <Form />
           <PaperList />
