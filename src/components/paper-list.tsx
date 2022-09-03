@@ -45,7 +45,9 @@ const PaperList = () => {
   // filters papers list
   const filteredPapers =
     search.length > 0
-      ? data?.filter((paper) => paper.name.includes(search))
+      ? data?.filter((paper) =>
+          paper.name.toLowerCase().includes(search.toLowerCase())
+        )
       : [];
 
   if (isLoading) {
